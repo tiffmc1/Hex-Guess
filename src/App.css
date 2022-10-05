@@ -13,3 +13,15 @@
 	padding: 2em;
 	margin: 1em;
 }
+
+.app-result-container {
+	font-size: 4em;
+}
+
+.app-result-wrong {
+	color: red;
+}
+
+.app-result-correct {
+	color: green;
+}
