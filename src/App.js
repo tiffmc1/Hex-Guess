@@ -2,12 +2,16 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-	const [color, setColor] = useState("#4287f5");
+	const [color, setColor] = useState(null);
+	const [colors, setColors] = useState([]);
 
 	useEffect(() => {
-		const newColor = getRandomColor();
+		const firstColor = getRandomColor();
+		const secondColor = getRandomColor();
+		const thirdColor = getRandomColor();
 
-		setColor(newColor);
+		setColor(firstColor);
+		setColors([firstColor, secondColor, thirdColor]);
 	}, []);
 
 	function getRandomColor() {
@@ -23,9 +27,11 @@ function App() {
 			<div className="app-container">
 				<div className="app-color-box" style={{ background: color }}></div>
 				<div className="app-btn-container">
-					<button className="app-btn">{color}</button>
-					<button className="app-btn">hex 2</button>
-					<button className="app-btn">hex 3</button>
+					{colors.map((color) => (
+						<button className="app-btn" key={color}>
+							{color}
+						</button>
+					))}
 				</div>
 			</div>
 		</>
