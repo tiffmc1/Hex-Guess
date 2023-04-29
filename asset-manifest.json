@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Hex-Guess/static/css/main.671a0f6a.css",
+    "main.js": "/Hex-Guess/static/js/main.6da8d68c.js",
+    "index.html": "/Hex-Guess/index.html",
+    "main.671a0f6a.css.map": "/Hex-Guess/static/css/main.671a0f6a.css.map",
+    "main.6da8d68c.js.map": "/Hex-Guess/static/js/main.6da8d68c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.671a0f6a.css",
+    "static/js/main.6da8d68c.js"
+  ]
+}
