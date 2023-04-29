@@ -1,57 +1,70 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
+const generateRandomColor = () => {
+	const red = parseInt(Math.random() * 255);
+	const green = parseInt(Math.random() * 255);
+	const blue = parseInt(Math.random() * 255);
+
+	return `#${red.toString(16).toUpperCase()}${green
+		.toString(16)
+		.toUpperCase()}${blue.toString(16).toUpperCase()}`;
+};
+
 function App() {
-	const [color, setColor] = useState(null);
+	const [color, setColor] = useState("");
 	const [colors, setColors] = useState([]);
-	const [result, setResult] = useState(null);
+	const [isWrong, setIsWrong] = useState(null);
+
+	const generateColors = () => {
+		const displayedColor = generateRandomColor();
+		const wrongColor1 = generateRandomColor();
+		const wrongColor2 = generateRandomColor();
+
+		setColor(displayedColor);
+		setColors(
+			[displayedColor, wrongColor1, wrongColor2].sort(() => Math.random() - 0.5)
+		);
+	};
 
 	useEffect(() => {
-		const firstColor = getRandomColor();
-		const secondColor = getRandomColor();
-		const thirdColor = getRandomColor();
-
-		setColor(firstColor);
-		setColors(
-			[firstColor, secondColor, thirdColor].sort(() => Math.random() - 0.5)
-		);
+		generateColors();
 	}, []);
 
-	function getRandomColor() {
-		const red = parseInt(Math.random() * 255);
-		const green = parseInt(Math.random() * 255);
-		const blue = parseInt(Math.random() * 255);
-
-		return `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`;
-	}
-
-	function handleResult(singleColor) {
-		if (singleColor === color) setResult(true);
-		else setResult(false);
-	}
+	const handleAnswer = (guessedColor) => {
+		if (guessedColor === color) {
+			setIsWrong(false);
+			generateColors();
+		} else setIsWrong(true);
+	};
 
 	return (
 		<>
-			<div className="app-container">
-				<div className="app-color-box" style={{ background: color }}></div>
-				<div className="app-btn-container">
+			<div className="hex-wrapper">
+				<h1 className="hex-header">Hex-Guess Game</h1>
+				<div className="hex-desc">
+					Pick the correct hex matching the color block below
+				</div>
+				<div className="hex-color" style={{ background: color }} />
+
+				<div className="hex-btn-wrapper">
 					{colors.map((singleColor) => (
-						<button
-							className="app-btn"
-							key={singleColor}
-							onClick={() => handleResult(singleColor)}
-						>
-							{singleColor}
-						</button>
+						<div key={singleColor}>
+							<button
+								className="hex-btn"
+								onClick={() => handleAnswer(singleColor)}
+							>
+								{singleColor}
+							</button>
+						</div>
 					))}
 				</div>
-				<div className="app-result-container">
-					<div className="app-result-wrong">
-						{result === false ? "Wrong!" : null}
-					</div>
-					<div className="app-result-correct">
-						{result === true ? "Correct!" : null}
-					</div>
+
+				<div className="hex-answer-wrapper">
+					{isWrong === false ? (
+						<div className="hex-correct">Correct!</div>
+					) : null}
+					{isWrong === true ? <div className="hex-wrong">Wrong!</div> : null}
 				</div>
 			</div>
 		</>
